@@ -21,7 +21,7 @@ W = tf.Variable(tf.zeros([784, 10]))
 b = tf.Variable(tf.zeros([10]))
 
 # softmax模型
-y_predict = tf.nn.softmax(tf.add(tf.matmul(x, W), b))  # y_predict是行形式的
+y_predict = tf.nn.softmax(tf.add(tf.matmul(x, W), b))  # y_predict是行形式的  xW也使得结果是一行一个比较好好看
 
 # 交叉熵
 cross_entropy = -tf.reduce_sum(y * tf.log(y_predict))  # 计算y对应的每一个元素，然后默认按行做和做和
