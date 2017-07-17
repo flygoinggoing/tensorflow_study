@@ -113,15 +113,17 @@ with tf.Session() as sess:
         batch = mnist.train.next_batch(50)
         if i%50 == 0:
             """
-            交互式使用  sess = tf.InteractiveSession()
+            （1）交互式使用  sess = tf.InteractiveSession()
             使用InteractiveSession代替Session，使用Tensor.eval()和Operation.run()方法代替Session.run()
+            （2）或者在一个已经启动的绘画的图中：
+                    with tf.Session() as sess:
             
             """
             train_accuracy = accuracy.eval(feed_dict={x:batch[0], y: batch[1], keep_prob: 1.0})
             print "step %d, training accuracy %g"%(i, train_accuracy)
         train_step.run(feed_dict={x: batch[0], y: batch[1], keep_prob: 0.5})
     print "test accuracy %g"%accuracy.eval(feed_dict={x: mnist.test.images, y: mnist.test.labels, keep_prob: 1.0})
-print('adam用时：{0}'.format(time.time()-start))
+print('adam用时：{0}'.format(time.clock()-start))
 
 """
 官网说这个的准确率99.2%
