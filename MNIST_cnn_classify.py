@@ -106,7 +106,8 @@ train_step = tf.train.AdamOptimizer(1e-4).minimize(cross_entropy)
 correct_prediction = tf.equal(tf.argmax(y_conv,1), tf.argmax(y,1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
 
-start = time.clock()
+# start = time.clock() # cpu时间
+start = time.time()
 with tf.Session() as sess:
     sess.run(tf.global_variables_initializer())
     for i in range(20000):
@@ -123,8 +124,9 @@ with tf.Session() as sess:
             print "step %d, training accuracy %g"%(i, train_accuracy)
         train_step.run(feed_dict={x: batch[0], y: batch[1], keep_prob: 0.5})
     print "test accuracy %g"%accuracy.eval(feed_dict={x: mnist.test.images, y: mnist.test.labels, keep_prob: 1.0})
-print('adam用时：{0}'.format(time.clock()-start))
-
+# print('adam用时：{0}'.format(time.clock()-start))
+print('adam用时：{0}'.format(time.time()-start))# 大概一个小时
 """
 官网说这个的准确率99.2%
+
 """
